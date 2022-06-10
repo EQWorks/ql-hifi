@@ -18,8 +18,8 @@ def init():
                 LOAD httpfs;
 
                 SET s3_region='us-east-1';
-                SET s3_access_key_id='{os.getenv("AWS_ACCESS_KEY_ID")}';
-                SET s3_secret_access_key='{os.getenv("AWS_SECRET_ACCESS_KEY")}';
+                SET s3_access_key_id='{os.getenv("AWS_KEY")}';
+                SET s3_secret_access_key='{os.getenv("AWS_SECRET")}';
             """
         )
 
