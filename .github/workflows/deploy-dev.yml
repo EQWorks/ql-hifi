@@ -1,0 +1,39 @@
+name: Serverless Deploy - dev stage
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - 'dev-*'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install pipenv
+        run: pipx install pipenv
+
+      - uses: actions/setup-python@v3
+        with:
+          python-version: '3.9'  # same as in serverless.yml and Pipfile
+          cache: 'pipenv'
+
+      - name: Install serverless dependencies
+        run: npm i
+
+      - run: npx serverless deploy --stage=dev
+        env:
+          # aws creds for deployment
+          AWS_ACCESS_KEY_ID: ${{secrets.CD_AWS_ACCESS_KEY_ID}}
+          AWS_SECRET_ACCESS_KEY: ${{secrets.CD_AWS_SECRET_ACCESS_KEY}}
+
+      - name: Notify on deployment status
+        if: ${{ always() }}
+        run: npx @eqworks/notify deployment $GITHUB_REPOSITORY --commit=$GITHUB_SHA --stage=dev --status=$JOB_STATUS
+        env:
+          SLACK_HOOK: ${{ secrets.CD_SLACK_HOOK }}
+          JOB_STATUS: ${{ job.status }}
