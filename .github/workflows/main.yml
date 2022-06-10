@@ -23,12 +23,14 @@ jobs:
       - run: pipenv install --dev
       - run: pipenv run black --check .
 
-  scan-env:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
+  # TODO: doesn't work because we're using implied AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY
+  # in the lambda environment
+  # scan-env:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v3
 
-      - run: npx @eqworks/scan-env --strict
+  #     - run: npx @eqworks/scan-env --strict
 
   commit-watch:
     runs-on: ubuntu-latest
