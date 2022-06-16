@@ -1,4 +1,5 @@
 import os
+from typing import List
 
 import sqlalchemy as sa
 
@@ -24,9 +25,16 @@ def init():
         )
 
 
-def query(query: str):
+def vet(query: str) -> bool:
+    return 'duckdb_settings' not in query.lower()
+
+
+def query(query: str) -> List[dict]:
     """
     Query the database.
     """
+    if not vet(query):
+        raise ValueError('Query contains illegal phrases.')
+
     with engine.connect() as conn:
         return [dict(row) for row in conn.execute(query).fetchall()]
