@@ -15,7 +15,7 @@ def sort_local(fpath):
                     COPY (
                         SELECT *
                         FROM read_csv_auto('{fpath}', header=True)
-                        ORDER BY lastStatusDate
+                        ORDER BY 1
                     ) TO 'data/{fname}_local_sorted.csv' WITH (HEADER 1);
                 '''
             )
@@ -33,7 +33,7 @@ def sort_remote_gz(s3_uri):
                     COPY (
                         SELECT *
                         FROM read_csv_auto('{s3_uri}', header=True)
-                        ORDER BY lastStatusDate
+                        ORDER BY 1
                     ) TO 'data/{fname}_remote_sorted.csv' WITH (HEADER 1);
                 '''
             )
