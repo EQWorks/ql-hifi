@@ -29,6 +29,9 @@ provider:
     HOME: '/tmp'
     AWS_KEY: ${env:AWS_ACCESS_KEY_ID}
     AWS_SECRET: ${env:AWS_SECRET_ACCESS_KEY}
+    PAYMI_AWS_ACCESS_KEY_ID: ${env:PAYMI_AWS_ACCESS_KEY_ID}
+    PAYMI_AWS_SECRET_ACCESS_KEY: ${env:PAYMI_AWS_ACCESS_KEY_ID}
+    PAYMI_REGION: ${env:PAYMI_REGION, 'ca-central-1'}
 
 functions:
   query:
