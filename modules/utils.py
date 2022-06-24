@@ -1,12 +1,17 @@
+import os
 from typing import Tuple, Optional, List
 
 import boto3
 
 
-URI_PAYMI_TRANSACTION_FOLDER = 's3://paymi-prod-normalized-transaction-data'
-PAYMI_REGION = 'ca-central-1'
-PAYMI_AWS_ACCESS_KEY_ID = ''
-PAYMI_AWS_SECRET_ACCESS_KEY = ''
+PAYMI_TRANSACTION_BUCKET = os.getenv(
+    'PAYMI_TRANSACTION_BUCKET',
+    'paymi-prod-normalized-transaction-data',
+)
+URI_PAYMI_TRANSACTION_FOLDER = f's3://{PAYMI_TRANSACTION_BUCKET}'
+PAYMI_REGION = os.getenv('PAYMI_REGION', 'ca-central-1')
+PAYMI_AWS_ACCESS_KEY_ID = os.getenv('PAYMI_AWS_ACCESS_KEY_ID')
+PAYMI_AWS_SECRET_ACCESS_KEY = os.getenv('PAYMI_AWS_SECRET_ACCESS_KEY')
 
 
 def get_paymi_transaction_file_uris(
