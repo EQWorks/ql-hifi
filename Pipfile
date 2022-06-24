@@ -7,6 +7,7 @@ name = "pypi"
 duckdb = "*"
 duckdb-engine = "*"
 sqlalchemy = "*"
+boto3 = "==1.21.46"
 
 [dev-packages]
 black = "*"
