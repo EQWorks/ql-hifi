@@ -7,7 +7,11 @@ import sqlalchemy as sa
 engine = sa.create_engine("duckdb:///:memory:")
 
 
-def init():
+def init(
+    aws_access_key_id: str = os.getenv('AWS_KEY'),
+    aws_secret_access_key: str = os.getenv('AWS_SECRET'),
+    region: str = 'us-east-1',
+) -> None:
     """
     Initialize the database with HTTPFS module loaded for S3 imports.
     """
@@ -18,9 +22,9 @@ def init():
 
                 LOAD httpfs;
 
-                SET s3_region='us-east-1';
-                SET s3_access_key_id='{os.getenv("AWS_KEY")}';
-                SET s3_secret_access_key='{os.getenv("AWS_SECRET")}';
+                SET s3_region='{region}';
+                SET s3_access_key_id='{aws_access_key_id}';
+                SET s3_secret_access_key='{aws_secret_access_key}';
             """
         )
 
