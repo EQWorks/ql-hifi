@@ -27,9 +27,12 @@ jobs:
 
       - run: npx serverless deploy --stage=dev
         env:
-          # aws creds for deployment
-          AWS_ACCESS_KEY_ID: ${{secrets.CD_AWS_ACCESS_KEY_ID}}
-          AWS_SECRET_ACCESS_KEY: ${{secrets.CD_AWS_SECRET_ACCESS_KEY}}
+          # aws creds for deployment (and for s3 catalogs)
+          AWS_ACCESS_KEY_ID: ${{ secrets.CD_AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.CD_AWS_SECRET_ACCESS_KEY }}
+          # paymi aws creds for s3 catalogs
+          PAYMI_AWS_ACCESS_KEY_ID: ${{ secrets.PAYMI_CD_AWS_ACCESS_KEY_ID }}
+          PAYMI_AWS_SECRET_ACCESS_KEY: ${{ secrets.PAYMI_CD_AWS_SECRET_ACCESS_KEY }}
 
       - name: Notify on deployment status
         if: ${{ always() }}
