@@ -1,0 +1,46 @@
+service: ql-hifi
+
+frameworkVersion: '3'
+configValidationMode: error
+
+# https://github.com/serverless/serverless-python-requirements#optimising-packaging-time
+package:
+  individually: false
+  include:
+    - '!./**'
+    - './modules/**'
+    - './handler.py'
+  exclude:
+    - '**'
+
+provider:
+  name: aws
+  runtime: python3.9
+  region: us-east-1
+  versionFunctions: false
+  stage: ${opt:stage, 'dev'}
+  vpc: # vpc-70658509 | EQ-DC-Tunnel
+    securityGroupIds:
+      - sg-081b437d # api-gateway-dc
+    subnetIds:
+      - subnet-b59ae9fe # EQ-DC-Lambda Public 1A
+      - subnet-df12bb82 # EQ-DC-Lambda Public 1B
+  environment:
+    HOME: '/tmp'
+    AWS_KEY: ${env:AWS_ACCESS_KEY_ID}
+    AWS_SECRET: ${env:AWS_SECRET_ACCESS_KEY}
+    PAYMI_AWS_ACCESS_KEY_ID: ${env:PAYMI_AWS_ACCESS_KEY_ID}
+    PAYMI_AWS_SECRET_ACCESS_KEY: ${env:PAYMI_AWS_ACCESS_KEY_ID}
+    PAYMI_REGION: ${env:PAYMI_REGION, 'ca-central-1'}
+
+functions:
+  query:
+    handler: handler.query
+    timeout: 29 # to indicate the function is intended for real-time UI usage
+
+custom:
+  pythonRequirements:
+    dockerizePip: non-linux
+
+plugins:
+  - serverless-python-requirements
