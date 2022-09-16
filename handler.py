@@ -12,5 +12,5 @@ def query(event, context):
     data = duck.query(event.get('query', event.get('q')))
     return {
         'statusCode': 200,
-        'body': json.dumps(data),
+        'body': json.dumps(data, default=str),
     }
