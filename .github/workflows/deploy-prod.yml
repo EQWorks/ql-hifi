@@ -12,8 +12,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      # forcing version due to https://github.com/serverless/serverless-python-requirements/issues/716
       - name: Install pipenv
-        run: pipx install pipenv
+        run: pipx install pipenv==2022.8.5
 
       - uses: actions/setup-python@v3
         with:
