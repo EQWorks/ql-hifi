@@ -13,7 +13,7 @@ def to_parquert(bucket, key) -> None:
         aws_secret_access_key=os.getenv('AWS_SECRET'),
         region_name='us-east-1',
     )
-    filename = 'tmp/results.parquet'
+    filename = '/tmp/results.parquet'
     obj = s3.get_object(Bucket=bucket, Key=key)
     with gzip.open(obj['Body'], 'rt', encoding='UTF-8') as gf:
         data = json.loads(gf.read())
