@@ -8,9 +8,7 @@ duckdb = "*"
 duckdb-engine = "*"
 sqlalchemy = "*"
 boto3 = "==1.21.46"
-pandas = "*"
 pyarrow = "*"
-fastparquet = "*"
 
 [dev-packages]
 black = "*"
