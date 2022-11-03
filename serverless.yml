@@ -37,6 +37,8 @@ functions:
   query:
     handler: handler.query
     timeout: 29 # to indicate the function is intended for real-time UI usage
+  to_parquet:
+    handler: handler.to_parquet
 
 custom:
   pythonRequirements:
