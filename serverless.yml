@@ -43,6 +43,7 @@ functions:
 custom:
   pythonRequirements:
     dockerizePip: non-linux
+    zip: true
 
 plugins:
   - serverless-python-requirements
