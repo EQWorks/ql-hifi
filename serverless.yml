@@ -39,6 +39,8 @@ functions:
     timeout: 29 # to indicate the function is intended for real-time UI usage
   to_parquet:
     handler: handler.to_parquet
+    layers:
+      - arn:aws:lambda:us-east-1:175398475102:layer:AWSDataWrangler:1
 
 custom:
   pythonRequirements:
