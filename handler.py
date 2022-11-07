@@ -1,6 +1,11 @@
+try:
+    import unzip_requirements
+except ImportError:
+    pass
+
 import json
 
-from modules import duck
+from modules import duck, parquet
 
 
 def query(event, context):
@@ -14,3 +19,10 @@ def query(event, context):
         'statusCode': 200,
         'body': json.dumps(data, default=str),
     }
+
+
+def to_parquet(event, context):
+    bucket = event.get('bucket')
+    keys = event.get('keys')
+    for key in keys:
+        parquet.to_parquet(bucket, key)
