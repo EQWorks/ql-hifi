@@ -32,6 +32,15 @@ provider:
     PAYMI_AWS_ACCESS_KEY_ID: ${env:PAYMI_AWS_ACCESS_KEY_ID}
     PAYMI_AWS_SECRET_ACCESS_KEY: ${env:PAYMI_AWS_ACCESS_KEY_ID}
     PAYMI_REGION: ${env:PAYMI_REGION, 'ca-central-1'}
+  iam:
+    role:
+      statements:
+      - Effect: Allow
+        Action:
+          - s3:ListBucket
+          - s3:GetObject
+          - s3:PutObject
+        Resource: "*"
 
 functions:
   query:
