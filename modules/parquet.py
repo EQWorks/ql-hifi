@@ -7,12 +7,7 @@ import pyarrow.parquet as pq
 
 
 def to_parquet(bucket, key) -> None:
-    s3 = boto3.client(
-        service_name='s3',
-        aws_access_key_id=os.getenv('AWS_KEY'),
-        aws_secret_access_key=os.getenv('AWS_SECRET'),
-        region_name='us-east-1',
-    )
+    s3 = boto3.client('s3')
     filename = '/tmp/results.parquet'
     obj = s3.get_object(Bucket=bucket, Key=key)
     with gzip.open(obj['Body'], 'rt', encoding='UTF-8') as gf:
