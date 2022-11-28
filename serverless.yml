@@ -39,6 +39,7 @@ functions:
     timeout: 29 # to indicate the function is intended for real-time UI usage
   to_parquet:
     handler: handler.to_parquet
+    timeout: 900
 
 custom:
   pythonRequirements:
